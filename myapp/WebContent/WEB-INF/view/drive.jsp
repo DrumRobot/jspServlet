@@ -12,7 +12,9 @@
 </form>
 <ul>
 	<c:forEach var="item" items="${fileList}">
-		<li>${item}</li>
+	<li>
+		<a href="downloadServlet/${item}">${item}</a>
+	</li>
 	</c:forEach>
 </ul>
 </body>
