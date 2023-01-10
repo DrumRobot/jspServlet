@@ -4,6 +4,8 @@
 <html>
 <head>
 <title>Drive</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body>
 <form method="post" enctype="multipart/form-data">
@@ -13,7 +15,12 @@
 <ul>
 	<c:forEach var="item" items="${fileList}">
 	<li>
-		<a href="downloadServlet/${item}">${item}</a>
+		<form method="post" enctype="application/x-www-form-urlencoded">
+			<a href="../upload/${item}" target="_blank">${item}</a>
+			<input type="hidden" name="_method" value="DELETE" />
+			<input type="hidden" name="name" value="${item}" />
+			<button class="fa-solid fa-trash"></button>
+		</form>
 	</li>
 	</c:forEach>
 </ul>

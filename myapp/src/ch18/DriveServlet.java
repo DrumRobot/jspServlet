@@ -15,7 +15,7 @@ public class DriveServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		uploadPath = getServletContext().getRealPath("WEB-INF/upload");
+		uploadPath = getServletContext().getRealPath("upload");
 		System.out.println(uploadPath);
 	}
 
@@ -32,9 +32,22 @@ public class DriveServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String method = request.getParameter("_method"); // hidden
+		if ("DELETE".equalsIgnoreCase(method)) {
+			doDelete(request, response);
+			return;
+		}
+
 		Part filePart = request.getPart("file");
 		String fileName = filePart.getSubmittedFileName();
 		filePart.write(new File(uploadPath, fileName).getPath());
+		response.sendRedirect("./driveServlet");
+	}
+
+	@Override
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String fileName = request.getParameter("name");
+		new File(uploadPath, fileName).delete();
 		response.sendRedirect("./driveServlet");
 	}
 }
