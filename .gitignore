@@ -1,1 +1,6 @@
+.classpath
 .metadata/
+.project
+.settings/
+Servers/
+build/
